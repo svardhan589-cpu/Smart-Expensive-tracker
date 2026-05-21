@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Expense Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- ================= LOGIN PAGE ================= -->
+    <div id="loginPage" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600">
+        <div class="bg-white p-10 rounded-2xl shadow-2xl w-[400px] text-center">
+            <h1 class="text-3xl font-bold mb-6">💸 Smart Expense Tracker</h1>
+            <input type="text" placeholder="Username (optional)" class="w-full border p-2 rounded mb-3">
+            <input type="password" placeholder="Password (optional)" class="w-full border p-2 rounded mb-5">
+            <button onclick="goToDashboard()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded">
+                Next →
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="dashboardPage" class="hidden bg-gradient-to-r from-slate-100 to-slate-200 min-h-screen p-6">
+        <div class="max-w-6xl mx-auto">
+
+            <div class="flex justify-between mb-4">
+                <h1 class="text-3xl font-bold">💸 Smart Expense Tracker Dashboard</h1>
+                <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded">Logout</button>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                <div class="bg-green-100 p-4 rounded shadow text-center">
+                    <h2>Total Income</h2>
+                    <p>₹ <span id="income">0</span></p>
+                </div>
+                <div class="bg-red-100 p-4 rounded shadow text-center">
+                    <h2>Total Expense</h2>
+                    <p>₹ <span id="expense">0</span></p>
+                </div>
+                <div class="bg-blue-100 p-4 rounded shadow text-center">
+                    <h2>Balance</h2>
+                    <p>₹ <span id="balance">0</span></p>
+                </div>
+                <div class="bg-purple-100 p-4 rounded shadow text-center">
+                    <h2>Weekly Expense</h2>
+                    <p>₹ <span id="weeklyExpense">0</span></p>
+                </div>
+                <div class="bg-orange-100 p-4 rounded shadow text-center">
+                    <h2>Monthly Expense</h2>
+                    <p>₹ <span id="monthlyExpense">0</span></p>
+                </div>
+            </div>
+
+            <!-- Expense Distribution -->
+            <div class="bg-white p-5 rounded shadow mb-6">
+                <h2 class="font-bold mb-3">📊 Expense Distribution</h2>
+                <div class="h-[300px]">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Weekly vs Monthly -->
+            <div class="bg-white p-5 rounded shadow mb-6">
+                <h2 class="font-bold mb-3">📊 Weekly vs Monthly Comparison</h2>
+                <div class="h-[350px]">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+            </div>
+
+            <!-- ================= ADVANCED REPORTS ================= -->
+            <div class="bg-white p-5 rounded shadow mb-6">
+                <h2 class="font-bold text-xl mb-4">📊 Advanced Financial Reports</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                    <!-- Expense Growth -->
+                    <div class="bg-gray-100 p-4 rounded text-center">
+                        <h3 class="font-semibold mb-2">📈 Expense Growth</h3>
+                        <p id="growthPercentage" class="text-2xl font-bold">0%</p>
+                    </div>
+
+                    <!-- Savings Rate -->
+                    <div class="bg-green-100 p-4 rounded text-center">
+                        <h3 class="font-semibold mb-2">🧮 Savings Rate</h3>
+                        <p id="savingsRate" class="text-2xl font-bold">0%</p>
+                    </div>
+
+                    <!-- Custom Date Range -->
+                    <div class="bg-blue-100 p-4 rounded">
+                        <h3 class="font-semibold mb-2 text-center">📆 Custom Date Range Report</h3>
+                        <input type="date" id="startDate" class="border p-2 rounded mb-2 w-full">
+                        <input type="date" id="endDate" class="border p-2 rounded mb-2 w-full">
+                        <button id="generateReport" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
+                            Generate Amount Spent
+                        </button>
+                        <p id="customReportResult" class="mt-2 font-semibold text-center"></p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Add Record -->
+            <div class="bg-white p-5 rounded shadow">
+                <h2 class="text-xl font-bold mb-3">Add Record</h2>
+
+                <form id="expenseForm" class="space-y-3">
+                    <input id="amount" type="number" placeholder="Amount" class="w-full border p-2 rounded">
+                    <input id="category" type="text" placeholder="Enter Category" class="w-full border p-2 rounded">
+                    <input id="date" type="date" class="w-full border p-2 rounded">
+
+                    <select id="type" class="w-full border p-2 rounded">
+                        <option value="">Select Type</option>
+                        <option>Income</option>
+                        <option>Expense</option>
+                    </select>
+
+                    <button class="w-full bg-blue-600 text-white p-2 rounded">
+                        Add Entry
+                    </button>
+                </form>
+
+                <ul id="list" class="mt-4 space-y-2"></ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
